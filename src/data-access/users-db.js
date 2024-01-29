@@ -43,16 +43,48 @@ export default function makeUsersDb({ getInstance }) {
 	}
 	
 	async function update ({ id: _id, ...userInfo }) {
+		console.log({
+			from: "usersDB > update",
+			userInfo
+		})
 		const client = await getInstance()
+		console.log({
+			client
+		})
+
 		const result = await client.db(dbName)
 		.collection('users')
-		.updateOne({ _id }, { $set: { ...userInfo } })
+		.updateOne(
+			{ _id }, 
+			{ $set: 
+				{ ...userInfo } 
+		})
+
+		console.log({
+			result
+		})
+		
 		return result
 	}
 
 	async function remove ({ id: _id }) {
+		console.log({
+			from: "usersDB > remove",
+			userInfo
+		})
 		const client = await getInstance()
-		const result = await client.db(dbName).collection('users').deleteOne({ _id })
+
+		console.log({
+			client
+		})
+
+		const result = await client.db(dbName)
+		.collection('users')
+		.deleteOne({ _id })
+
+		console.log({
+			result
+		})
 		return result
 	}
 

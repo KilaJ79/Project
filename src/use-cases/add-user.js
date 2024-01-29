@@ -8,11 +8,13 @@ export default function makeAddUser ({ usersDb }){
 			from: "use case > addUser",
 			userInfo
 		})
+		// cek user info
+		// klo email sdh ada, throw error
+		if (usersDb.email) {
+			throw new Error('Email already exists');
+		}
 		const user = await usersDb.insert(userInfo)
-		// const exists = await usersDb.findById(user.getId())
-		// if (exists) {
-		// 	throw new Error('User already exists')
-		// }
+
 		console.log({
 			user
 		});

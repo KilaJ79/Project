@@ -1,8 +1,10 @@
 import express from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import notFound from "./controllers/notfound.js";
+import { notFound } from "./controllers/index.js";
 import { postUser } from "./controllers/index.js";
+import { patchUser } from "./controllers/index.js";
+import { deleteUser } from "./controllers/index.js";
 import expressCallback from "./callback/index.js"
 
 dotenv.config();
@@ -19,6 +21,12 @@ app.use((_, res, next) => {
 
 // handle POST /users
 app.post(`/users`, expressCallback(postUser))
+
+// handle PUT /users
+app.put(`/users/:id`, expressCallback(patchUser))
+
+// handle DELETE /users
+app.delete(`/users/:id`, expressCallback(deleteUser))
 
 // test base url
 app.get("/", (_req, res) => {
